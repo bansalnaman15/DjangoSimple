@@ -1,0 +1,15 @@
+Not Found: /
+Not Found: /
+Not Found: /nama
+Not Found: /nama
+Not Found: /nama
+Not Found: /namaaaa
+Internal Server Error: /naman/1
+Traceback (most recent call last):
+  File "C:\Users\2TIN\PycharmProjects\djangoBasic\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\2TIN\PycharmProjects\djangoBasic\venv\lib\site-packages\django\core\handlers\base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\2TIN\PycharmProjects\djangoBasic\naman\views.py", line 11, in index1
+    return HttpResponse(1/0)
+ZeroDivisionError: division by zero
