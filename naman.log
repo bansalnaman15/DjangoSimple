@@ -1,0 +1,6 @@
+[36mGET /naman/[0m
+[36m{'HTTP_NAMAN': 'bansal', 'HTTP_USER_AGENT': 'PostmanRuntime/7.26.3', 'HTTP_ACCEPT': '*/*', 'HTTP_POSTMAN_TOKEN': '39f2c505-3a4f-4e31-b9d1-017582c73c72', 'HTTP_ACCEPT_ENCODING': 'gzip, deflate, br', 'HTTP_CONNECTION': 'keep-alive', 'HTTP_REFERER': 'http://127.0.0.1:8000/naman', 'HTTP_HOST': '127.0.0.1:8000'}[0m
+[36mGET /naman/ - 200[0m
+[36mGET /naman/[0m
+[36m{'HTTP_NAMAN': 'bansal', 'HTTP_USER_AGENT': 'PostmanRuntime/7.26.3', 'HTTP_ACCEPT': '*/*', 'HTTP_POSTMAN_TOKEN': 'c558f636-791b-410b-87b7-b86d02e6b842', 'HTTP_ACCEPT_ENCODING': 'gzip, deflate, br', 'HTTP_CONNECTION': 'keep-alive', 'HTTP_REFERER': 'http://127.0.0.1:8000/naman', 'HTTP_HOST': '127.0.0.1:8000'}[0m
+[36mGET /naman/ - 200[0m
