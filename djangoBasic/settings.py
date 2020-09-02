@@ -125,35 +125,56 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'django_rest_logger.handlers.rest_exception_handler',
 }
 
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'root': {
+#         'level': 'DEBUG',
+#         'handlers': ['django_rest_logger_handler'],
+#     },
+#     'formatters': {
+#         'verbose': {
+#             'format': '%(levelname)s %(asctime)s %(module)s '
+#                       '%(process)d %(thread)d %(message)s'
+#         },
+#     },
+#     'handlers': {
+#         'django_rest_logger_handler': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'verbose'
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'ERROR',
+#             'handlers': ['django_rest_logger_handler'],
+#             'propagate': False,
+#         },
+#         'django_rest_logger': {
+#             'level': 'DEBUG',
+#             'handlers': ['django_rest_logger_handler'],
+#             'propagate': False,
+#         },
+#     },
+# }
+
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
-    'root': {
-        'level': 'DEBUG',
-        'handlers': ['django_rest_logger_handler'],
-    },
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
-    },
+    'disable_existing_loggers': False,
     'handlers': {
-        'django_rest_logger_handler': {
-            'level': 'DEBUG',
+        'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
+        },
+        'naman':{
+            'class': 'logging.FileHandler',
+            'filename': 'naman.log',
         }
     },
     'loggers': {
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['django_rest_logger_handler'],
-            'propagate': False,
-        },
-        'django_rest_logger': {
-            'level': 'DEBUG',
-            'handlers': ['django_rest_logger_handler'],
+        'django.request': {
+            'handlers': ['naman'],
+            'level': 'DEBUG',  # change debug level as appropiate
             'propagate': False,
         },
     },
