@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import logging
 
 from pathlib import Path
 
@@ -147,6 +148,7 @@ LOGGING = {
         'naman':{
             'class': 'logging.FileHandler',
             'filename': 'naman.log',
+            'formatter':'verbose'
         }
 
     },
@@ -161,9 +163,9 @@ LOGGING = {
             'handlers': ['django_rest_logger_handler'],
             'propagate': False,
         },
-        'django.request': {
+        'django.server': {
             'handlers': ['naman'],
-            'level': 'DEBUG',  # change debug level as appropiate
+            'level': 'INFO',  # change debug level as appropiate
             'propagate': False,
         },
     },
@@ -190,7 +192,7 @@ LOGGING = {
 #     },
 # }
 
-DEFAULT_LOGGER = 'django.request'
+DEFAULT_LOGGER = 'django.server'
 
 LOGGER_EXCEPTION = DEFAULT_LOGGER
 LOGGER_ERROR = DEFAULT_LOGGER
