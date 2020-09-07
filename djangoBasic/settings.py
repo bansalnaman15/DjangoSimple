@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_elasticsearch_dsl',
 ]
 
 MIDDLEWARE = [
@@ -126,74 +127,109 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'django_rest_logger.handlers.rest_exception_handler',
 }
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    # 'root': {
-    #     'level': 'DEBUG',
-    #     'handlers': ['django_rest_logger_handler'],
-    # },
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
-    },
-    'handlers': {
-        'django_rest_logger_handler': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        },
-        'naman':{
-            'class': 'logging.FileHandler',
-            'filename': 'naman.log',
-            'formatter':'verbose'
-        }
-
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['django_rest_logger_handler'],
-            'propagate': False,
-        },
-        'django_rest_logger': {
-            'level': 'DEBUG',
-            'handlers': ['django_rest_logger_handler'],
-            'propagate': False,
-        },
-        'django.server': {
-            'handlers': ['naman'],
-            'level': 'INFO',  # change debug level as appropiate
-            'propagate': False,
-        },
-    },
-}
-
 # LOGGING = {
 #     'version': 1,
-#     'disable_existing_loggers': True,
+#     'disable_existing_loggers': False,
+#     # 'root': {
+#     #     'level': 'DEBUG',
+#     #     'handlers': ['django_rest_logger_handler'],
+#     # },
+#     'formatters': {
+#         'verbose': {
+#             'format': '%(levelname)s %(asctime)s %(module)s '
+#                       '%(process)d %(thread)d %(message)s'
+#         },
+#     },
 #     'handlers': {
-#         'console': {
+#         'django_rest_logger_handler': {
+#             'level': 'DEBUG',
 #             'class': 'logging.StreamHandler',
+#             'formatter': 'verbose'
 #         },
 #         'naman':{
 #             'class': 'logging.FileHandler',
 #             'filename': 'naman.log',
+#             'formatter':'verbose'
 #         }
+#
 #     },
 #     'loggers': {
-#         'django.request': {
+#         'django.db.backends': {
+#             'level': 'ERROR',
+#             'handlers': ['django_rest_logger_handler'],
+#             'propagate': False,
+#         },
+#         'django_rest_logger': {
+#             'level': 'DEBUG',
+#             'handlers': ['django_rest_logger_handler'],
+#             'propagate': False,
+#         },
+#         'django.server': {
 #             'handlers': ['naman'],
-#             'level': 'DEBUG',  # change debug level as appropiate
+#             'level': 'INFO',  # change debug level as appropiate
 #             'propagate': False,
 #         },
 #     },
 # }
+#
+# # LOGGING = {
+# #     'version': 1,
+# #     'disable_existing_loggers': True,
+# #     'handlers': {
+# #         'console': {
+# #             'class': 'logging.StreamHandler',
+# #         },
+# #         'naman':{
+# #             'class': 'logging.FileHandler',
+# #             'filename': 'naman.log',
+# #         }
+# #     },
+# #     'loggers': {
+# #         'django.request': {
+# #             'handlers': ['naman'],
+# #             'level': 'DEBUG',  # change debug level as appropiate
+# #             'propagate': False,
+# #         },
+# #     },
+# # }
+#
+# DEFAULT_LOGGER = 'django.server'
+#
+# LOGGER_EXCEPTION = DEFAULT_LOGGER
+# LOGGER_ERROR = DEFAULT_LOGGER
+# LOGGER_WARNING = DEFAULT_LOGGER
 
-DEFAULT_LOGGER = 'django.server'
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
+LOGGING = {
+  'version': 1,
+  'disable_existing_loggers': False,
+  'formatters': {
+      'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+  },
+  'handlers': {
+        'logstash': {
+            'level': 'DEBUG',
+            'class': 'logstash.TCPLogstashHandler',
+            'host': 'localhost',
+            'port': 5959, # Default value: 5959
+            'version': 1, # Version of logstash event schema. Default value: 0 (for backward compatibility of the library)
+            'message_type': 'django',  # 'type' field in logstash message. Default value: 'logstash'.
+            'fqdn': False, # Fully qualified domain name. Default value: false.
+            'tags': ['django.request'], # list of tags. Default: None.
+        },
+  },
+  'loggers': {
+        'django.server': {
+            'handlers': ['logstash'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
 
-LOGGER_EXCEPTION = DEFAULT_LOGGER
-LOGGER_ERROR = DEFAULT_LOGGER
-LOGGER_WARNING = DEFAULT_LOGGER
+    }
+}
