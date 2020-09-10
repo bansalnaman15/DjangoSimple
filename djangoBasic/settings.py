@@ -214,7 +214,7 @@ LOGGING = {
   },
   'handlers': {
         'logstash': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logstash.TCPLogstashHandler',
             'host': 'localhost',
             'port': 5959, # Default value: 5959
@@ -227,9 +227,10 @@ LOGGING = {
   'loggers': {
         'django.server': {
             'handlers': ['logstash'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
         },
+
 
     }
 }
